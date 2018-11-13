@@ -14,29 +14,56 @@ import java.util.Map;
  */
 public class Solution5 {
     private Map<String, String> storyMap = new HashMap<>();
+
     private String maxString = "";
+    private static final String REGEX_STR = "^(\\S).*(\\1)$";
 
     public String longestPalindrome(String s) {
+        if (s.length() == 0) {
+            return "";
+        }
         if (s.length() == 1) {
             return s;
         }
+        if (s.length() == 2) {
+            if (!s.matches(REGEX_STR)) {
+                return s.substring(0, 1);
+            }
+            return s;
+        }
         char[] chars = s.toCharArray();
+        maxString = String.valueOf(chars[0]);
 
-        for (int i = 0; i < chars.length; i++) {
-            for (int j = chars.length - 1; j > 0; j--) {
-                if (chars[i] == chars[j] && cheackIsPalindrome(s.substring(i, j + 1))) {
+        //偶数遍历 2位
+        for (int i = 0; i < chars.length - 1; i++) {
+            int longestReach = Math.min(i + 1, chars.length - i - 1) * 2;
+            if (longestReach <= maxString.length()) {
+                continue;
+            }
+            for (int j = 0; j <= i && j + i + 1 <= chars.length - 1; j++) {
+                if (!cheackIsPalindrome(s.substring(i - j, i + 1 + j + 1))) {
                     break;
                 }
+            }
+        }
 
-                //todo [a / 2 + a % 2, a / 2 + 1]
-
+        //偶数遍历 2位
+        for (int i = 0; i < chars.length - 2; i++) {
+            int longestReach = Math.min(i + 1, chars.length - i - 2) * 2 + 1;
+            if (longestReach <= maxString.length()) {
+                continue;
+            }
+            for (int j = 0; j <= i && j + i + 2 <= chars.length - 1; j++) {
+                if (!cheackIsPalindrome(s.substring(i - j, i + 2 + j + 1))) {
+                    break;
+                }
             }
         }
 
         return maxString;
     }
 
-    public boolean cheackIsPalindrome(String s) {
+    private boolean cheackIsPalindrome(String s) {
         if (s.length() == 1) {
             if (s.length() > maxString.length()) {
                 maxString = s;
@@ -44,7 +71,7 @@ public class Solution5 {
             return true;
         }
         if (s.length() == 2) {
-            if (!s.matches("(\\S)\\1")) {
+            if (!s.matches(REGEX_STR)) {
                 return false;
             }
             if (s.length() > maxString.length()) {
@@ -55,7 +82,7 @@ public class Solution5 {
         if (storyMap.get(s) != null) {
             return true;
         }
-        if (!s.matches("^(\\S)\\S*(\\1)$")) {
+        if (!s.matches(REGEX_STR)) {
             return false;
         }
         if (!cheackIsPalindrome(s.substring(1, s.length() - 1))) {
@@ -71,7 +98,8 @@ public class Solution5 {
 
     public static void main(String[] args) {
         long begin = System.currentTimeMillis();
-        String s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+        String s = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
+//        String s = "abba";
         System.out.println(new Solution5().longestPalindrome(s));
         long end = System.currentTimeMillis();
         System.out.println("time:" + (end - begin));
