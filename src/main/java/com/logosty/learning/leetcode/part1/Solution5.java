@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created with IDEA by logosty
  * Date:2018/11/12 Time:15:16
- * Description: 最长的回文子串 中等
+ * Description: 最长的回文子串 中等    掉在了string.substring()里面，千万不要随便创建string对象
  * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
  * 输入: "babad"
  * 输出: "bab"
@@ -17,51 +17,6 @@ public class Solution5 {
 
     private String maxString = "";
     private static final String REGEX_STR = "^(\\S).*(\\1)$";
-
-    public String longestPalindrome(String s) {
-        if (s.length() == 0) {
-            return "";
-        }
-        if (s.length() == 1) {
-            return s;
-        }
-        if (s.length() == 2) {
-            if (!s.matches(REGEX_STR)) {
-                return s.substring(0, 1);
-            }
-            return s;
-        }
-        char[] chars = s.toCharArray();
-        maxString = String.valueOf(chars[0]);
-
-        //偶数遍历 2位
-        for (int i = 0; i < chars.length - 1; i++) {
-            int longestReach = Math.min(i + 1, chars.length - i - 1) * 2;
-            if (longestReach <= maxString.length()) {
-                continue;
-            }
-            for (int j = 0; j <= i && j + i + 1 <= chars.length - 1; j++) {
-                if (!cheackIsPalindrome(s.substring(i - j, i + 1 + j + 1))) {
-                    break;
-                }
-            }
-        }
-
-        //偶数遍历 2位
-        for (int i = 0; i < chars.length - 2; i++) {
-            int longestReach = Math.min(i + 1, chars.length - i - 2) * 2 + 1;
-            if (longestReach <= maxString.length()) {
-                continue;
-            }
-            for (int j = 0; j <= i && j + i + 2 <= chars.length - 1; j++) {
-                if (!cheackIsPalindrome(s.substring(i - j, i + 2 + j + 1))) {
-                    break;
-                }
-            }
-        }
-
-        return maxString;
-    }
 
     private boolean cheackIsPalindrome(String s) {
         if (s.length() == 1) {
@@ -96,10 +51,66 @@ public class Solution5 {
     }
 
 
+    public String longestPalindrome(String s) {
+        if (s.length() == 0) {
+            return "";
+        }
+        if (s.length() == 1) {
+            return s;
+        }
+        if (s.length() == 2) {
+            if (s.charAt(0) != s.charAt(1)) {
+                return s.substring(0, 1);
+            }
+            return s;
+        }
+        int maxLenth = 1;
+        int maxStringLeftIndex = 0;
+
+        //基数遍历 1位
+        for (int i = 0; i <= s.length() - 1; i++) {
+            int longestReach = Math.min(i, s.length() - i - 1) * 2 + 1;
+            if (longestReach <= maxLenth) {
+                continue;
+            }
+            for (int j = 0; i - j >= 0 && i + j <= s.length() - 1; j++) {
+                if (s.charAt(i - j) != s.charAt(i + j)) {
+                    break;
+                }
+                int currentLenth = 2 * j  + 1;
+                if (currentLenth > maxLenth) {
+                    maxLenth = currentLenth;
+                    maxStringLeftIndex = i - j;
+                }
+            }
+        }
+
+        //偶数遍历 2位
+        for (int i = 0; i < s.length() - 1; i++) {
+            int longestReach = Math.min(i, s.length() - 1 - (i + 1)) * 2 + 2;
+            if (longestReach <= maxLenth) {
+                continue;
+            }
+            for (int j = 0; i - j >= 0 && i + 1 + j <= s.length() - 1; j++) {
+                if (s.charAt(i - j) != s.charAt(i + 1 + j)) {
+                    break;
+                }
+                int currentLenth = 2 * j  + 2;
+                if (currentLenth > maxLenth) {
+                    maxLenth = currentLenth;
+                    maxStringLeftIndex = i - j;
+                }
+            }
+        }
+
+        return s.substring(maxStringLeftIndex, maxStringLeftIndex + maxLenth);
+    }
+
+
     public static void main(String[] args) {
         long begin = System.currentTimeMillis();
-        String s = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
-//        String s = "abba";
+//        String s = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
+        String s = "abcdbbfcba";
         System.out.println(new Solution5().longestPalindrome(s));
         long end = System.currentTimeMillis();
         System.out.println("time:" + (end - begin));
