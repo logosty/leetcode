@@ -27,28 +27,39 @@ public class Solution6 {
         if (numRows == 1 || s.length() < 1) {
             return s;
         }
-        List<List<Character>> retList = new ArrayList<>();
+        List<StringBuilder> retList = new ArrayList<>();
         for (int i = 0; i < numRows; i++) {
-            retList.add(new ArrayList<>());
+            retList.add(new StringBuilder());
         }
-        addToList(retList, 0, numRows, s, 0, true);
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < retList.size(); i++) {
-            List list = retList.get(i);
-            for (int j = 0; j < list.size(); j++) {
-                sb.append(list.get(j));
+        boolean isDown = true;
+        int rowOffset = 0;
+        for (int i = 0; i < s.length(); i++) {
+            retList.get(rowOffset).append(s.charAt(i));
+
+            if (rowOffset == numRows - 1 || (rowOffset != 0 && !isDown)) {
+                isDown = false;
+                rowOffset--;
+                continue;
             }
+
+            isDown = true;
+            rowOffset++;
         }
 
-        return sb.toString();
+        StringBuilder retSb = new StringBuilder();
+        for (int i = 0; i < retList.size(); i++) {
+            retSb.append(retList.get(i));
+        }
+
+        return retSb.toString();
     }
 
-    public void addToList(List<List<Character>> retList, int listOffset, int numRows, String s, int stringOffset, boolean isDown) {
+    public void addToList(List<StringBuilder> retList, int listOffset, int numRows, String s, int stringOffset, boolean isDown) {
         if (s.length() <= stringOffset) {
             return;
         }
-        retList.get(listOffset).add(s.charAt(stringOffset));
+        retList.get(listOffset).append(s.charAt(stringOffset));
         if (listOffset == 0) {
             addToList(retList, listOffset + 1, numRows, s, stringOffset + 1, true);
             return;
