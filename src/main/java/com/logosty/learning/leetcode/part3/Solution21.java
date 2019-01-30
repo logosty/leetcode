@@ -33,16 +33,7 @@ class Solution21 {
         ListNode init = new ListNode(-1);
         ListNode ret = init;
 
-        while (true) {
-            if (l1 == null) {
-                init.next = l2;
-                break;
-            }
-            if (l2 == null) {
-                init.next = l1;
-                break;
-            }
-
+        while (l1 != null && l2 != null) {
             if (l1.val <= l2.val) {
                 init.next = l1;
                 l1 = l1.next;
@@ -51,6 +42,11 @@ class Solution21 {
                 l2 = l2.next;
             }
             init = init.next;
+        }
+        if (l1 == null) {
+            init.next = l2;
+        } else {
+            init.next = l1;
         }
         return ret.next;
     }
