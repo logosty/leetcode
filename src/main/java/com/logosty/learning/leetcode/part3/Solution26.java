@@ -42,37 +42,14 @@ package com.logosty.learning.leetcode.part3;
  */
 public class Solution26 {
     public int removeDuplicates(int[] nums) {
-        if (nums.length == 0) {
-            return 0;
-        }
-        int flag = Integer.MIN_VALUE;
-        int duplicateNum = 0;
-
-        int duplicate = nums[0];
+        int writtenIndex = 0;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == duplicate) {
-                duplicateNum++;
-                nums[i] = flag;
-            } else {
-                duplicate = nums[i];
+            if (nums[writtenIndex] != nums[i]) {
+                ++writtenIndex;
+                nums[writtenIndex] = nums[i];
             }
         }
-
-        for (int i = 1; i < nums.length - duplicateNum; i++) {
-            if (nums[i] != flag) {
-                continue;
-            }
-
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[j] != flag) {
-                    nums[i] = nums[j];
-                    nums[j] = flag;
-                    break;
-                }
-            }
-        }
-
-        return nums.length - duplicateNum;
+        return writtenIndex + 1;
     }
 
     public static void main(String[] args) {
