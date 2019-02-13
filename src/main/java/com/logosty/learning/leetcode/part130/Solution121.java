@@ -25,22 +25,16 @@ package com.logosty.learning.leetcode.part130;
  */
 public class Solution121 {
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) {
-            return 0;
-        }
-
-        int[] ints = new int[prices.length];
-        int ret = 0;
-        ints[prices.length - 1] = prices[prices.length - 1];
-        for (int i = prices.length - 2; i >= 0; i--) {
-            ints[i] = Math.max(prices[i], ints[i + 1]);
-        }
+        int maxProfit = 0;
+        int minPrice = Integer.MAX_VALUE;
 
         for (int i = 0; i < prices.length; i++) {
-            ret = Math.max(ret, ints[i] - prices[i]);
+            minPrice = Math.min(minPrice, prices[i]);
+
+            maxProfit = Math.max(maxProfit, prices[i] - minPrice);
         }
 
-        return ret;
+        return maxProfit;
     }
 
     public static void main(String[] args) {
