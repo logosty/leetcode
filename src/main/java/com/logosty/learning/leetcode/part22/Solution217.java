@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.part220;
+package com.logosty.learning.leetcode.part22;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.part190;
+package com.logosty.learning.leetcode.part19;
 
 import java.util.Arrays;
 

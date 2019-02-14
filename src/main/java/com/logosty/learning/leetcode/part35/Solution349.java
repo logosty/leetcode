@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.part350;
+package com.logosty.learning.leetcode.part35;
 
 import java.util.*;
 

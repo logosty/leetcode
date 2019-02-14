@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.part140;
+package com.logosty.learning.leetcode.part14;
 
 /**
  * Created with IDEA by logosty
