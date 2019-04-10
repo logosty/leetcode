@@ -23,6 +23,28 @@ import java.util.Map;
  */
 public class Solution169 {
     public int majorityElement(int[] nums) {
+        int point = nums[0];
+        int count = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (count == 0) {
+                point = nums[i];
+                count = 1;
+                continue;
+            }
+
+            if (nums[i] == point) {
+                count++;
+                continue;
+            }
+
+            count--;
+        }
+
+        return point;
+    }
+
+    public int majorityElement1(int[] nums) {
         Map<Integer, Integer> cache = new HashMap<>(nums.length / 2);
 
         for (int num : nums) {
