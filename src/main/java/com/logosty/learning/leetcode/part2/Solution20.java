@@ -1,7 +1,5 @@
 package com.logosty.learning.leetcode.part2;
 
-import java.util.*;
-
 /**
  * Created with IDEA by logosty
  * Date:2019/1/29 Time:15:16
