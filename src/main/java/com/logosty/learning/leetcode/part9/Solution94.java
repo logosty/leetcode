@@ -84,4 +84,8 @@ public class Solution94 {
     return ret;
   }
 
+  public static void main(String[] args) {
+
+  }
+
 }

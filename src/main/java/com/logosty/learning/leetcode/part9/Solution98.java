@@ -4,6 +4,7 @@ import com.logosty.learning.util.TreeUtil;
 import com.logosty.learning.util.pojo.TreeNode;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author logosty(ganyingle) on 2020/5/20 17:19
@@ -71,6 +72,53 @@ public class Solution98 {
       }
       maxMap.put(root, maxMap.get(root.right));
     }
+    return true;
+  }
+
+  public boolean isValidBST2(TreeNode root) {
+    if (root == null) {
+      return true;
+    }
+    boolean isBacktrack = false;
+    Integer preNum = null;
+
+    Stack<TreeNode> stack = new Stack<>();
+    stack.push(root);
+    while (!stack.isEmpty()) {
+      TreeNode node = stack.pop();
+
+      if (node.left == null && node.right == null) {
+        if (preNum != null && preNum >= node.val) {
+
+          return false;
+        }
+        preNum = node.val;
+        isBacktrack = true;
+        continue;
+      }
+
+      if (isBacktrack) {
+        if (preNum != null &&preNum >= node.val) {
+          return false;
+        }
+        preNum = node.val;
+        if (node.right != null) {
+          isBacktrack = false;
+        }
+        continue;
+      }
+
+      if (node.right != null) {
+        stack.push(node.right);
+      }
+      stack.push(node);
+      if (node.left != null) {
+        stack.push(node.left);
+      } else {
+        isBacktrack = true;
+      }
+    }
+
     return true;
   }
 
