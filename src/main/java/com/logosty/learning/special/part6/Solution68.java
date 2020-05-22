@@ -1,5 +1,6 @@
 package com.logosty.learning.special.part6;
 
+import com.logosty.learning.util.pojo.TreeNode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,17 +112,6 @@ class Pair {
 
   public boolean allMatched() {
     return this.hasp && this.hasq;
-  }
-}
-
-class TreeNode {
-
-  int val;
-  TreeNode left;
-  TreeNode right;
-
-  TreeNode(int x) {
-    val = x;
   }
 }
 
