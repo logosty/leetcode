@@ -39,4 +39,8 @@ public class Solution112 {
     }
     return loop(root.left, sum, total + root.val) || loop(root.right, sum, total + root.val);
   }
+
+  public static void main(String[] args) {
+
+  }
 }
