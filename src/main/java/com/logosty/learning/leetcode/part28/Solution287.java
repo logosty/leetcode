@@ -1,5 +1,7 @@
 package com.logosty.learning.leetcode.part28;
 
+import com.logosty.learning.annotation.ToOptimization;
+
 /**
  * @author logosty(ganyingle) on 2020/5/26 10:37
  * 287. 寻找重复数 中等
@@ -24,6 +26,7 @@ package com.logosty.learning.leetcode.part28;
  * 链接：https://leetcode-cn.com/problems/find-the-duplicate-number
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+@ToOptimization
 public class Solution287 {
   public int findDuplicate(int[] nums) {
     int buff = 0;
