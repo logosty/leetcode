@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.section100.part107;
+package com.logosty.learning.leetcode.section1000.part107;
 
 import com.logosty.learning.annotation.ToFinish;
 
