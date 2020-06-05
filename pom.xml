@@ -46,6 +46,14 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.25</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json -->
+        <dependency>
+            <groupId>com.eclipsesource.minimal-json</groupId>
+            <artifactId>minimal-json</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
