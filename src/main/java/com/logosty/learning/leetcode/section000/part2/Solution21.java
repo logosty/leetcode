@@ -1,5 +1,7 @@
 package com.logosty.learning.leetcode.section000.part2;
 
+import com.logosty.learning.util.pojo.ListNode;
+
 /**
  * Created with IDEA by logosty
  * Date:2019/1/29 Time:16:01
@@ -20,14 +22,6 @@ package com.logosty.learning.leetcode.section000.part2;
  */
 
 class Solution21 {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode init = new ListNode(-1);
