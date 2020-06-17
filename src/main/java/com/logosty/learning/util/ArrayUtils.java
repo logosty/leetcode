@@ -9,6 +9,22 @@ import java.io.InputStreamReader;
  * @author logosty(ganyingle) on 2020/6/1 20:17
  */
 public class ArrayUtils {
+  public static char[] stringToCharArray(String input) {
+    input = input.trim();
+    input = input.substring(1, input.length() - 1);
+    if (input.length() == 0) {
+      return new char[0];
+    }
+
+    String[] parts = input.split(",");
+    char[] output = new char[parts.length];
+    for(int index = 0; index < parts.length; index++) {
+      String part = parts[index].trim();
+      output[index] = part.charAt(0);
+    }
+    return output;
+  }
+
   public static int[] stringToIntegerArray(String input) {
     input = input.trim();
     input = input.substring(1, input.length() - 1);
@@ -35,6 +51,20 @@ public class ArrayUtils {
     for (int i = 0; i < arr.length; i++) {
       JsonArray cols = jsonArray.get(i).asArray();
       arr[i] = stringToIntegerArray(cols.toString());
+    }
+    return arr;
+  }
+
+  public static char[][] stringToChar2dArray(String input) {
+    JsonArray jsonArray = JsonArray.readFrom(input);
+    if (jsonArray.size() == 0) {
+      return new char[0][0];
+    }
+
+    char[][] arr = new char[jsonArray.size()][];
+    for (int i = 0; i < arr.length; i++) {
+      JsonArray cols = jsonArray.get(i).asArray();
+      arr[i] = stringToCharArray(cols.toString());
     }
     return arr;
   }
