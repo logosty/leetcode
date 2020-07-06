@@ -81,4 +81,29 @@ public class Solution63 {
     return ret;
   }
 
+  public int uniquePathsWithObstacles1(int[][] obstacleGrid) {
+    int xLength = obstacleGrid.length;
+    if (xLength == 0 || obstacleGrid[0].length == 0) {
+      return 0;
+    }
+    int yLength = obstacleGrid[0].length;
+    if (obstacleGrid[0][0] == 1 || obstacleGrid[xLength - 1][yLength - 1] == 1) {
+      return 0;
+    }
+
+    int[][] db = new int[xLength + 1][yLength + 1];
+    for (int i = 1; i < xLength + 1; i++) {
+      for (int j = 1; j < yLength + 1; j++) {
+        if (i == 1 && j == 1) {
+          db[i][j] = 1;
+        } else if (obstacleGrid[i - 1][j - 1] == 1) {
+
+        } else {
+          db[i][j] = db[i - 1][j] + db[i][j - 1];
+        }
+      }
+    }
+
+    return db[xLength][yLength];
+  }
 }
