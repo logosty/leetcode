@@ -39,4 +39,8 @@ public class Solution121 {
     }
     return ret;
   }
+
+  public static void main(String[] args) {
+
+  }
 }
