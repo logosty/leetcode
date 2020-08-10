@@ -1,8 +1,5 @@
 package com.logosty.learning.leetcode.section1000.part103;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author logosty(ganyingle) on 2020/8/10 17:08
  * 1035. 不相交的线 中等
@@ -41,39 +38,38 @@ import java.util.Map;
  */
 public class Solution1035 {
 
-  Map<String, Integer> cache = new HashMap<>();
+  int[][] cache;
 
   public int maxUncrossedLines(int[] A, int[] B) {
     if (A.length == 0 || B.length == 0) {
       return 0;
     }
+    cache = new int[A.length][B.length];
 
     return maxUncrossedLines(A, B, 0, 0);
   }
 
   public int maxUncrossedLines(int[] A, int[] B, int offsetA, int offsetB) {
-    String cacheKey = offsetA + ":" + offsetB;
-    if (cache.containsKey(cacheKey)) {
-      return cache.get(cacheKey);
-    }
     if (offsetA == A.length || offsetB == B.length) {
       return 0;
     }
-    int i1 = maxUncrossedLines(A, B, offsetA + 1, offsetB);
+    if (cache[offsetA][offsetB] != 0) {
+      return Math.max(0, cache[offsetA][offsetB]);
+    }
+    int res = maxUncrossedLines(A, B, offsetA + 1, offsetB);
     for (int i = offsetB; i < B.length; i++) {
       if (B[i] == A[offsetA]) {
-        int max = Math.max(1 + maxUncrossedLines(A, B, offsetA + 1, i + 1), i1);
-        cache.put(cacheKey, max);
-        return max;
+        res = Math.max(1 + maxUncrossedLines(A, B, offsetA + 1, i + 1), res);
+        break;
       }
     }
-    cache.put(cacheKey, i1);
-    return i1;
+    cache[offsetA][offsetB] = res == 0 ? -1 : res;
+    return res;
   }
 
   public static void main(String[] args) {
-    int[] int1 = {1,3,7,1,7,5};
-    int[] int2 = {1,9,2,5,1};
+    int[] int1 = {1, 3, 7, 1, 7, 5};
+    int[] int2 = {1, 9, 2, 5, 1};
     System.out.println(new Solution1035().maxUncrossedLines(int1, int2));
 
   }
