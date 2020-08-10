@@ -35,21 +35,24 @@ public class Solution696 {
     }
     int res = 0;
     char[] chars = s.toCharArray();
+    int lastSame = 0;
     for (int i = 1; i < chars.length; i++) {
       if (chars[i] == chars[i - 1]) {
+        lastSame++;
         continue;
       }
-      int num = getNum(chars, i);
+      int num = getNum(lastSame, chars, i);
       res += num;
       i += (num - 1);
+      lastSame = num - 1;
     }
     return res;
   }
 
-  public int getNum(char[] chars, int pos) {
+  public int getNum(int lastSame, char[] chars, int pos) {
     int num = 1;
-    for (; pos - num - 1 >= 0 && pos + num <= chars.length - 1; num++) {
-      if (!(chars[pos - num - 1] != chars[pos] && chars[pos + num] == chars[pos])) {
+    for (; num <= lastSame && pos + num <= chars.length - 1; num++) {
+      if (chars[pos + num] != chars[pos]) {
         break;
       }
     }
@@ -58,7 +61,7 @@ public class Solution696 {
   }
 
   public static void main(String[] args) {
-    String s = "10101";
+    String s = "00110";
     System.out.println(new Solution696().countBinarySubstrings(s));
   }
 }
