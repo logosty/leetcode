@@ -1,9 +1,12 @@
 package com.logosty.learning.leetcode.section000.part2;
 
+import java.util.ArrayDeque;
+import java.util.HashMap;
+
 /**
  * Created with IDEA by logosty
  * Date:2019/1/29 Time:15:16
- * Description: 20. 有效的括号
+ * Description: 20. 有效的括号 简单
  * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
  * <p>
  * 有效字符串需满足：
@@ -34,6 +37,7 @@ package com.logosty.learning.leetcode.section000.part2;
  * 输出: true
  */
 public class Solution20 {
+
     public boolean isValid(String s) {
         if (s == null || s.length() == 1) {
             return false;
@@ -85,7 +89,34 @@ public class Solution20 {
 
     }
 
+    public boolean isValid1(String s){
+        if ((s.length() & 1) ==1) {
+            return false;
+        }
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
+
+        ArrayDeque<Character> deque = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                deque.push(c);
+                continue;
+            }
+            if (deque.isEmpty()) {
+                return false;
+            }
+            Character cc = deque.pop();
+            if (map.get(cc) != c) {
+                return false;
+            }
+        }
+        return deque.isEmpty();
+
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Solution20().isValid("()"));
+        System.out.println(new Solution20().isValid1("()"));
     }
 }
