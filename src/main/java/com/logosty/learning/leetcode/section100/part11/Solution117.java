@@ -42,6 +42,7 @@ import com.logosty.learning.util.pojo.TreeNode;
  */
 public class Solution117 {
 
+  //从下找上
   public Node connect(Node root) {
     if (root == null) {
       return root;
@@ -92,6 +93,38 @@ public class Solution117 {
 
   }
 
+  //从上处理下
+  public Node connect2(Node root) {
+    if (root == null) {
+      return root;
+    }
+    Node dummy = new Node();
+    dummy.next = root;
+    func2(dummy);
+    return root;
+  }
+
+  public void func2(Node dummy) {
+    if (dummy.next == null) {
+      return;
+    }
+    Node curTmp = dummy.next;
+    dummy.next = null;
+    Node nextTmp = dummy;
+    while (curTmp != null) {
+      if (curTmp.left != null) {
+        nextTmp.next = curTmp.left;
+        nextTmp = nextTmp.next;
+      }
+
+      if (curTmp.right != null) {
+        nextTmp.next = curTmp.right;
+        nextTmp = nextTmp.next;
+      }
+      curTmp = curTmp.next;
+    }
+    func2(dummy);
+  }
 
   public static void main(String[] args) {
     TreeNode node = TreeUtil.stringToTreeNode("[1,null,2]");
