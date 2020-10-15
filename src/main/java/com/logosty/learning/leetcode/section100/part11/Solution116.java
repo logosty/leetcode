@@ -34,27 +34,6 @@ package com.logosty.learning.leetcode.section100.part11;
  * 使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
  */
 
-class Node {
-
-  public int val;
-  public Node left;
-  public Node right;
-  public Node next;
-
-  public Node() {
-  }
-
-  public Node(int _val) {
-    val = _val;
-  }
-
-  public Node(int _val, Node _left, Node _right, Node _next) {
-    val = _val;
-    left = _left;
-    right = _right;
-    next = _next;
-  }
-}
 
 public class Solution116 {
 
@@ -79,5 +58,9 @@ public class Solution116 {
 
     func(pre == null ? null : pre.right, left.left, left.right);
     func(left.right, right.left, right.right);
+  }
+
+  public static void main(String[] args) {
+
   }
 }
