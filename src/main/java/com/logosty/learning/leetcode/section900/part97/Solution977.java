@@ -30,44 +30,21 @@ public class Solution977 {
       return new int[0];
     }
     int[] res = new int[A.length];
-    if (A.length == 1) {
-      res[0] = A[0] * A[0];
-      return res;
-    }
 
-    int centerIndex = 0;
-    for (int i = 0; i < A.length; i++) {
-      if (A[i] >= 0) {
-        centerIndex = i;
-        break;
-      }
-    }
+    int left = 0;
+    int right = A.length - 1;
+    int offset = res.length - 1;
 
-    int left = centerIndex - 1;
-    int right = centerIndex;
-    int offset = 0;
-    while (left >= 0 || right < A.length) {
-      if (left < 0) {
+    while (right >= left) {
+      if (A[right] >= Math.abs(A[left])) {
         res[offset] = A[right] * A[right];
-        offset++;
-        right++;
-        continue;
-      }
-      if (right >= A.length) {
-        res[offset] = A[left] * A[left];
-        offset++;
-        left--;
-        continue;
-      }
-
-      if (A[right] <= -A[left]) {
-        res[offset] = A[right] * A[right];
-        right++;
+        offset--;
+        right--;
       } else {
         res[offset] = A[left] * A[left];
-        left--;
+        offset--;
+        left++;
       }
-      offset++;
     }
 
     return res;
