@@ -1,11 +1,9 @@
 package com.logosty.learning.leetcode.section000.part1;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author logosty(ganyingle) on 2020/8/26 15:43
@@ -25,55 +23,48 @@ import java.util.stream.Collectors;
  */
 public class Solution17 {
 
-  private static Map<Character, List<Character>> map = new HashMap<>();
-
-  static {
-    map.put('2', List.of('a', 'b', 'c'));
-    map.put('3', List.of('d', 'e', 'f'));
-    map.put('4', List.of('g', 'h', 'i'));
-    map.put('5', List.of('j', 'k', 'l'));
-    map.put('6', List.of('m', 'n', 'o'));
-    map.put('7', List.of('p', 'q', 'r', 's'));
-    map.put('8', List.of('t', 'u', 'v'));
-    map.put('9', List.of('w', 'x', 'y', 'z'));
-  }
-
+  List<String> res = new ArrayList<>();
+  String[] map = {"", "", "abc", "edf", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
   /**
+   * 执行结果：
+   * 通过
+   * 显示详情
    * 执行用时：
-   * 2 ms
+   * 1 ms
    * , 在所有 Java 提交中击败了
-   * 49.60%
+   * 87.39%
    * 的用户
    * 内存消耗：
-   * 38.8 MB
+   * 36.9 MB
    * , 在所有 Java 提交中击败了
-   * 46.33%
+   * 99.76%
    * 的用户
    */
   public List<String> letterCombinations(String digits) {
-
     if (digits.length() == 0) {
       return new ArrayList<>();
     }
-    char[] chars = digits.toCharArray();
-    List<char[]> intArrayList = new ArrayList<>();
-    intArrayList.add(new char[chars.length]);
 
-    for (int i = 0; i < chars.length; i++) {
-      char c = chars[i];
-      List<Character> list = map.get(c);
-      int currentSize = intArrayList.size();
-      for (int j = 0; j < currentSize; j++) {
-        for (int k = 1; k < list.size(); k++) {
-          char[] newArray = Arrays.copyOfRange(intArrayList.get(j), 0, intArrayList.get(j).length);
-          newArray[i] = list.get(k);
-          intArrayList.add(newArray);
-        }
-        intArrayList.get(j)[i] = list.get(0);
+    StringBuilder sb = new StringBuilder();
+    fun(sb, digits, 0);
+    return res;
+  }
+
+  public void fun(StringBuilder sb, String digits, int index) {
+    char c = digits.charAt(index);
+    String s = map[c - '0'];
+
+    for (char cc : s.toCharArray()) {
+      sb.append(cc);
+      if (index == digits.length() - 1) {
+        res.add(sb.toString());
+      } else {
+        fun(sb, digits, index + 1);
       }
+      sb.deleteCharAt(sb.length() - 1);
     }
-    return intArrayList.stream().map(String::valueOf).collect(Collectors.toList());
+
   }
 
   public static void main(String[] args) {
