@@ -69,21 +69,18 @@ public class Solution143 {
   }
 
   public ListNode reversal(ListNode node) {
-    ListNode first = new ListNode(-1);
-    first.next = node;
-    ListNode current = node.next;
-    node.next = null;
+    ListNode pre = null;
+    ListNode curr = node;
+    ListNode next = node;
 
-    while (current != null) {
+    while (curr != null) {
+      next = curr.next;
+      curr.next = pre;
 
-      ListNode tmp = first.next;
-      first.next = current;
-
-      current = current.next;
-      first.next.next = tmp;
+      pre = curr;
+      curr = next;
     }
-
-    return first.next;
+    return pre;
   }
 
   public static void main(String[] args) {
