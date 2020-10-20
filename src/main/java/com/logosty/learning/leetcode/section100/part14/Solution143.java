@@ -21,14 +21,14 @@ import com.logosty.learning.util.pojo.ListNode;
 
 /**
  * 执行用时：
- * 3 ms
+ * 2 ms
  * , 在所有 Java 提交中击败了
- * 36.63%
+ * 79.06%
  * 的用户
  * 内存消耗：
- * 40.8 MB
+ * 40.6 MB
  * , 在所有 Java 提交中击败了
- * 98.66%
+ * 99.65%
  * 的用户
  */
 public class Solution143 {
