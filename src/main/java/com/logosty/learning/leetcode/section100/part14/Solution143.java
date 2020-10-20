@@ -71,10 +71,9 @@ public class Solution143 {
   public ListNode reversal(ListNode node) {
     ListNode pre = null;
     ListNode curr = node;
-    ListNode next = node;
 
     while (curr != null) {
-      next = curr.next;
+      ListNode next = curr.next;
       curr.next = pre;
 
       pre = curr;
