@@ -1,7 +1,9 @@
 package com.logosty.learning.leetcode.section100.part13;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author logosty(ganyingle) on 2020/10/19 20:40
@@ -21,71 +23,51 @@ import java.util.List;
  */
 
 /**
- * 执行用时：
- * 36 ms
- * , 在所有 Java 提交中击败了
- * 5.08%
- * 的用户
- * 内存消耗：
- * 40.1 MB
- * , 在所有 Java 提交中击败了
- * 8.99%
- * 的用户
+ 执行用时：
+ 2 ms
+ , 在所有 Java 提交中击败了
+ 98.38%
+ 的用户
+ 内存消耗：
+ 38.5 MB
+ , 在所有 Java 提交中击败了
+ 100.00%
+ 的用户
  */
 public class Solution131 {
 
   List<List<String>> res = new ArrayList<>();
-  private final String SPLIT = ",";
 
   public List<List<String>> partition(String s) {
-    StringBuilder sb = new StringBuilder();
-    func(s, 0, sb);
+    func(s, 0, new ArrayList<>());
     return res;
   }
 
-  public void func(String s, int index, StringBuilder sb) {
+  public void func(String s, int index, List<String> sb) {
     if (index >= s.length()) {
-      res.add(split(sb));
+      List<String> list = new ArrayList<>(sb);
+      res.add(list);
       return;
     }
 
     for (int i = 0; i + index < s.length(); i++) {
-      StringBuilder toBeSplit = new StringBuilder();
-      for (int j = 0; j <= i; j++) {
-        toBeSplit.append(s.charAt(index + j));
-      }
-      if (!check(toBeSplit)) {
+
+      if (!check(s, index, index + i)) {
         continue;
       }
-      sb.append(toBeSplit);
-      sb.append(SPLIT);
+      sb.add(s.substring(index, index + i + 1));
       func(s, index + i + 1, sb);
-      sb.delete(sb.length() - 2 - i, sb.length());
+      sb.remove(sb.size() - 1);
     }
   }
 
-  public List<String> split(StringBuilder sb) {
-    StringBuilder cache = new StringBuilder();
-    List<String> res = new ArrayList<>();
 
-    for (int i = 0; i < sb.length(); i++) {
-      if (SPLIT.equals(String.valueOf(sb.charAt(i)))) {
-        res.add(cache.toString());
-        cache.delete(0, cache.length());
-        continue;
-      }
-      cache.append(sb.charAt(i));
-    }
-    return res;
-
-  }
-
-  public boolean check(StringBuilder sb) {
-    if (sb.length() == 1) {
+  public boolean check(String str, int begin, int end) {
+    if (begin == end) {
       return true;
     }
-    for (int i = 0; i < sb.length() / 2; i++) {
-      if (sb.charAt(i) != sb.charAt(sb.length() - 1 - i)) {
+    for (int i = 0; i + begin <= (end + begin) / 2; i++) {
+      if (str.charAt(begin + i) != str.charAt(end - i)) {
         return false;
       }
     }
