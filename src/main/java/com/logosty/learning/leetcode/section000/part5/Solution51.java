@@ -2,6 +2,7 @@ package com.logosty.learning.leetcode.section000.part5;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author logosty(ganyingle) on 2020/10/20 15:00
@@ -42,15 +43,8 @@ import java.util.List;
 public class Solution51 {
 
   List<List<String>> res = new ArrayList<>();
-  String strTemplate;
-
 
   public List<List<String>> solveNQueens(int n) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < n; i++) {
-      sb.append(".");
-    }
-    strTemplate = sb.toString();
 
     func(new int[n], 0);
     return res;
@@ -75,18 +69,22 @@ public class Solution51 {
 
   private List<String> buildRes(int[] checkerboard) {
 
-    List<String> res = new ArrayList<>();
+    List<StringBuilder> sbs = new ArrayList<>();
     for (int i = 0; i < checkerboard.length; i++) {
-      res.add(strTemplate);
+      sbs.add(new StringBuilder());
     }
 
     for (int i = 0; i < checkerboard.length; i++) {
-      String s = res.get(i);
-      String s1 =
-          s.substring(0, checkerboard[i]) + "Q" + s.substring(checkerboard[i] + 1, s.length());
-      res.set(i, s1);
+      for (int j = 0; j < checkerboard.length; j++) {
+        if (j == checkerboard[i]) {
+          sbs.get(j).append("Q");
+        } else {
+          sbs.get(j).append(".");
+        }
+      }
     }
-    return res;
+
+    return sbs.stream().map(StringBuilder::toString).collect(Collectors.toList());
   }
 
   private boolean check(int[] checkerboard, int column, int row) {
