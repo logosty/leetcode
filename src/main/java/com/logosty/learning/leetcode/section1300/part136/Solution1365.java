@@ -79,4 +79,45 @@ public class Solution1365 {
     }
     return res;
   }
+
+  /**
+   * 执行用时：
+   * 6 ms
+   * , 在所有 Java 提交中击败了
+   * 66.25%
+   * 的用户
+   * 内存消耗：
+   * 38.4 MB
+   * , 在所有 Java 提交中击败了
+   * 95.80%
+   * 的用户
+   */
+  public int[] smallerNumbersThanCurrent2(int[] nums) {
+    int[] res = new int[nums.length];
+
+    Map<Integer, List<Integer>> cache = new HashMap<>();
+    int[] counts = new int[101];
+    for (int i = 0; i < nums.length; i++) {
+      int num = nums[i];
+      if (!cache.containsKey(num)) {
+        cache.put(num, new ArrayList<>());
+      }
+      cache.get(num).add(i);
+      counts[num]++;
+    }
+
+    int last = 0;
+    for (int i = 0; i < counts.length; i++) {
+      if (counts[i] == 0) {
+        continue;
+      }
+
+      List<Integer> list = cache.get(i);
+      int fix = last;
+      list.forEach(integer -> res[integer] = fix);
+
+      last = counts[i] + last;
+    }
+    return res;
+  }
 }
