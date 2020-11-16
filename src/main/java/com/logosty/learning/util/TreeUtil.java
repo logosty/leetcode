@@ -55,6 +55,29 @@ public class TreeUtil {
         return root;
     }
 
+    public static String treeNodeToString(TreeNode root) {
+        if (root == null) {
+            return "[]";
+        }
+
+        String output = "";
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(root);
+        while(!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.remove();
+
+            if (node == null) {
+                output += "null, ";
+                continue;
+            }
+
+            output += String.valueOf(node.val) + ", ";
+            nodeQueue.add(node.left);
+            nodeQueue.add(node.right);
+        }
+        return "[" + output.substring(0, output.length() - 2) + "]";
+    }
+
     public static String booleanToString(boolean input) {
         return input ? "True" : "False";
     }
