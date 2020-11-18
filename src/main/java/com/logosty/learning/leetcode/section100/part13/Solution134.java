@@ -50,14 +50,14 @@ public class Solution134 {
 
   /**
    * 执行用时：
-   * 67 ms
+   * 1 ms
    * , 在所有 Java 提交中击败了
-   * 22.80%
+   * 41.86%
    * 的用户
    * 内存消耗：
-   * 38.7 MB
+   * 38.8 MB
    * , 在所有 Java 提交中击败了
-   * 80.66%
+   * 78.81%
    * 的用户
    */
   public int canCompleteCircuit(int[] gas, int[] cost) {
@@ -81,6 +81,7 @@ public class Solution134 {
       for (int j = 0; j < gap.length; j++) {
         last += gap[(i + j) % gap.length];
         if (last < 0) {
+          i = i + j;
           break;
         }
       }
