@@ -34,11 +34,9 @@ public class Solution78 {
 
   List<List<Integer>> res = new ArrayList<>();
 
-  public static void main(String[] args) {
-    System.out.println(JSON.toJSONString(new Solution78().subsets(new int[]{1, 2, 3})));
-  }
 
   /**
+   * 回溯
    * 执行用时：
    * 5 ms
    * , 在所有 Java 提交中击败了
@@ -50,17 +48,17 @@ public class Solution78 {
    * 95.10%
    * 的用户
    */
-  public List<List<Integer>> subsets(int[] nums) {
+  public List<List<Integer>> subsets1(int[] nums) {
     ArrayDeque<Integer> deque = new ArrayDeque<>(nums.length);
     for (int num : nums) {
       deque.add(num);
     }
-    loop(new HashSet<>(nums.length), deque);
+    loop1(new HashSet<>(nums.length), deque);
     res.add(new ArrayList<>());
     return res;
   }
 
-  private void loop(Set<Integer> cur, Deque<Integer> candidate) {
+  private void loop1(Set<Integer> cur, Deque<Integer> candidate) {
     int size = candidate.size();
     if (size == 0) {
       return;
@@ -73,9 +71,42 @@ public class Solution78 {
 
       cur.add(first);
       res.add(List.copyOf(cur));
-      loop(cur, candidate);
+      loop1(cur, candidate);
       cur.remove(first);
     }
     candidate.addAll(cache);
+  }
+
+
+  /**
+   * 动态规划
+   * 执行用时：
+   * 2 ms
+   * , 在所有 Java 提交中击败了
+   * 24.08%
+   * 的用户
+   * 内存消耗：
+   * 38.7 MB
+   * , 在所有 Java 提交中击败了
+   * 92.15%
+   * 的用户
+   */
+  public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    res.add(new ArrayList<>());
+
+    for (int num : nums) {
+      int size = res.size();
+      for (int i = 0; i < size; i++) {
+        List<Integer> list1 = new ArrayList<>(List.copyOf(res.get(i)));
+        list1.add(num);
+        res.add(list1);
+      }
+    }
+    return res;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(JSON.toJSONString(new Solution78().subsets(new int[]{1, 2, 3})));
   }
 }
