@@ -1,5 +1,7 @@
 package com.logosty.learning.leetcode.section100.part11;
 
+import com.logosty.learning.util.pojo.Node;
+
 /**
  * @author logosty(ganyingle) on 2020/10/15 11:53
  * 116. 填充每个节点的下一个右侧节点指针 中等

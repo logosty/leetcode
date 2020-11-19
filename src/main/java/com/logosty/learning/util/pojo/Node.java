@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.section100.part11;
+package com.logosty.learning.util.pojo;
 
 /**
  * @author logosty(ganyingle) on 2020/10/15 17:16

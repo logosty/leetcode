@@ -1,6 +1,7 @@
 package com.logosty.learning.leetcode.section100.part11;
 
 import com.logosty.learning.util.TreeUtil;
+import com.logosty.learning.util.pojo.Node;
 import com.logosty.learning.util.pojo.TreeNode;
 
 /**
