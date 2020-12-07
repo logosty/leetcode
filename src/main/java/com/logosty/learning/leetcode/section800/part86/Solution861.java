@@ -30,6 +30,39 @@ package com.logosty.learning.leetcode.section800.part86;
  */
 public class Solution861 {
 
+  /**
+   * 执行用时：
+   * 0 ms
+   * , 在所有 Java 提交中击败了
+   * 100.00%
+   * 的用户
+   * 内存消耗：
+   * 36.4 MB
+   * , 在所有 Java 提交中击败了
+   * 61.02%
+   * 的用户
+   */
+  public int matrixScore(int[][] A) {
+    for (int i = 0; i < A.length; i++) {
+      if (A[i][0] == 0) {
+        reversal(A[i]);
+      }
+    }
+    int res = 0;
+
+    for (int i = 0; i < A[0].length; i++) {
+      int count = 0;
+      for (int[] ints : A) {
+        if (ints[i] == 0) {
+          count++;
+        }
+      }
+      res = res * 2 + (count > A.length / 2 ? count : A.length - count);
+    }
+
+    return res;
+  }
+
 
     /**
      * 执行用时：
