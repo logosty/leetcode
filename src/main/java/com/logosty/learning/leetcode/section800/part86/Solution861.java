@@ -30,6 +30,11 @@ package com.logosty.learning.leetcode.section800.part86;
  */
 public class Solution861 {
 
+  public static void main(String[] args) {
+    int[][] ints = {{0, 0, 1, 1}, {1, 0, 1, 0}, {1, 1, 0, 0}};
+    System.out.println(new Solution861().matrixScore(ints));
+  }
+
   /**
    * 执行用时：
    * 0 ms
@@ -45,7 +50,9 @@ public class Solution861 {
   public int matrixScore(int[][] A) {
     for (int i = 0; i < A.length; i++) {
       if (A[i][0] == 0) {
-        reversal(A[i]);
+        for (int j = 0; j < A[i].length; j++) {
+          A[i][j] ^= 1;
+        }
       }
     }
     int res = 0;
@@ -63,19 +70,18 @@ public class Solution861 {
     return res;
   }
 
-
-    /**
-     * 执行用时：
-     * 1 ms
-     * , 在所有 Java 提交中击败了
-     * 29.27%
-     * 的用户
-     * 内存消耗：
-     * 36.2 MB
-     * , 在所有 Java 提交中击败了
-     * 72.03%
-     * 的用户
-     */
+  /**
+   * 执行用时：
+   * 1 ms
+   * , 在所有 Java 提交中击败了
+   * 29.27%
+   * 的用户
+   * 内存消耗：
+   * 36.2 MB
+   * , 在所有 Java 提交中击败了
+   * 72.03%
+   * 的用户
+   */
   public int matrixScore1(int[][] A) {
     for (int i = 0; i < A.length; i++) {
       if (A[i][0] == 0) {
@@ -120,10 +126,5 @@ public class Solution861 {
     for (int i = 0; i < ints.length; i++) {
       ints[i][index] ^= 1;
     }
-  }
-
-  public static void main(String[] args) {
-    int[][] ints = {{0,0,1,1},{1,0,1,0},{1,1,0,0}};
-    System.out.println(new Solution861().matrixScore(ints));
   }
 }
