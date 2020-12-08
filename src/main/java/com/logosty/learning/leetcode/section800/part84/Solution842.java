@@ -52,11 +52,11 @@ import java.util.List;
  */
 public class Solution842 {
 
+  List<Integer> res = new ArrayList<>();
+
   public static void main(String[] args) {
     System.out.println(new Solution842().splitIntoFibonacci("0123"));
   }
-
-  List<Integer> res = new ArrayList<>();
 
   /**
    * 执行用时：
