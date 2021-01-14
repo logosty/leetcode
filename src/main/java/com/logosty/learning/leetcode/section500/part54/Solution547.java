@@ -1,9 +1,8 @@
 package com.logosty.learning.leetcode.section500.part54;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
  * @author logosty(ganyingle) on 2021/1/11 16:19
@@ -43,22 +42,26 @@ import java.util.Map;
 public class Solution547 {
 
   public static void main(String[] args) {
-    int[][] ints = {
-        {1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-        {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-        {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-        {0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
-        {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0},
-        {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-        {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}};
+//    int[][] ints = {
+//        {1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+//        {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//        {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+//        {0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+//        {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+//        {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+//        {0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
+//        {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
+//        {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0},
+//        {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
+//        {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+//        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+//        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+//        {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
+//        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}};
+
+    int[][] ints = new int[][]{{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
+    System.out.println(new Solution547().findCircleNum2(ints));
+
     System.out.println(new Solution547().findCircleNum(ints));
 
   }
@@ -130,51 +133,64 @@ public class Solution547 {
   }
 
 
-
+  /**
+   * 执行用时：
+   * 8 ms
+   * , 在所有 Java 提交中击败了
+   * 10.06%
+   * 的用户
+   * 内存消耗：
+   * 39.5 MB
+   * , 在所有 Java 提交中击败了
+   * 20.61%
+   * 的用户
+   */
   public int findCircleNum(int[][] isConnected) {
-    Map<Integer, Integer> parentMap = new HashMap<>();
-    int res = 0;
+    int[] parent = new int[isConnected.length];
+
+    //init
+    for (int i = 0; i < parent.length; i++) {
+      parent[i] = i;
+    }
 
     for (int i = 0; i < isConnected.length; i++) {
       for (int j = 0; j < isConnected.length; j++) {
-        if (i == j) {
+        if (i == j || isConnected[i][j] == 0) {
           continue;
         }
-        if (isConnected[i][j] == 0) {
-          continue;
-        }
-
-        if (!parentMap.containsKey(i) && !parentMap.containsKey(i)) {
-          res++;
-          parentMap.put(i, i);
-          parentMap.put(j, i);
-          continue;
-        }
-
-        if (parentMap.containsKey(i) && parentMap.containsKey(i)) {
-          res--;
-
-          int tmp = j;
-          while (parentMap.containsKey(tmp)) {
-            tmp = parentMap.get(tmp);
-          }
-          parentMap.put(tmp, i);
-          continue;
-        }
-
-        if (parentMap.containsKey(i)) {
-          parentMap.put(j, i);
-        } else {
-          parentMap.put(i, j);
-        }
+        merge(parent, i, j);
       }
-      if (!parentMap.containsKey(i)) {
-        res++;
-      }
-
     }
-    return res;
+    return (int) IntStream.range(0, isConnected.length)
+        .map(i -> findParent(parent, i))
+        .distinct()
+        .count();
 
   }
+
+  private int findParent(int[] parent, int i) {
+    Integer children = null;
+    int cur = i;
+
+    while (parent[cur] != cur) {
+      if (children != null) {
+        parent[children] = parent[cur];
+      }
+
+      children = cur;
+      cur = parent[children];
+    }
+    return parent[cur];
+  }
+
+  private void merge(int[] parent, int i, int j) {
+    int parentI = findParent(parent, i);
+    int parentJ = findParent(parent, j);
+
+    if (parentJ != parentI) {
+      parent[parentJ] = i;
+    }
+  }
+
 
 }
