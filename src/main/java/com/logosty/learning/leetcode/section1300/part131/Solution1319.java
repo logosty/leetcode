@@ -1,6 +1,5 @@
 package com.logosty.learning.leetcode.section1300.part131;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -70,11 +69,44 @@ public class Solution1319 {
     }
     UnionFind unionFind = new UnionFind(n);
 
+    int total = n;
+
     for (int[] connection : connections) {
-      unionFind.merge(connection[0], connection[1]);
+      if (!unionFind.merge(connection[0], connection[1])) {
+        total--;
+      }
     }
 
-    return (int) (IntStream.range(0, n).map(unionFind::getParent).distinct().count() - 1);
+    return total - 1;
+  }
+  class UnionFind {
+
+    int[] parent;
+
+    public UnionFind(int size) {
+      parent = new int[size];
+      for (int i = 0; i < size; i++) {
+        parent[i] = i;
+      }
+
+    }
+
+    public boolean merge(int i, int j) {
+      int parentI = getParent(i);
+      int parentJ = getParent(j);
+      if (parentI == parentJ) {
+        return true;
+      }
+      parent[parentI] = parentJ;
+      return false;
+    }
+
+    private int getParent(int i) {
+      if (i != parent[i]) {
+        parent[i] = getParent(parent[i]);
+      }
+      return parent[i];
+    }
   }
 
   /**
@@ -135,39 +167,4 @@ public class Solution1319 {
     }
   }
 
-  class UnionFind {
-
-    int[] parent;
-    int[] rank;
-
-    public UnionFind(int size) {
-      parent = new int[size];
-      for (int i = 0; i < size; i++) {
-        parent[i] = i;
-      }
-
-      rank = new int[size];
-      Arrays.fill(rank, 1);
-    }
-
-    public void merge(int i, int j) {
-      int parentI = getParent(i);
-      int parentJ = getParent(j);
-      if (parentI == parentJ) {
-        return;
-      }
-      int target = rank[parentI] <= rank[parentJ] ? parentI : parentJ;
-      int source = target == parentI ? parentJ : parentI;
-
-      parent[source] = target;
-      rank[target] = Math.max(rank[target], rank[source] + 1);
-    }
-
-    private int getParent(int i) {
-      if (i != parent[i]) {
-        parent[i] = getParent(parent[i]);
-      }
-      return parent[i];
-    }
-  }
 }
