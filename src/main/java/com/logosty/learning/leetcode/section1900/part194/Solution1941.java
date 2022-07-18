@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.section1900.part190;
+package com.logosty.learning.leetcode.section1900.part194;
 
 /**
  * @author ganyingle <ganyingle@kuaishou.com>
