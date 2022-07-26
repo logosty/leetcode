@@ -1,7 +1,7 @@
 package com.logosty.learning.leetcode.section1100.part113;
 
 /**
- * @author ganyingle <ganyingle@kuaishou.com>
+ * @author ganyingle 
  * Created on 2022-07-25
  * description: 1137. 第 N 个泰波那契数 简单
  * 泰波那契序列 Tn 定义如下： 

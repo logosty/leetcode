@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ganyingle <ganyingle@kuaishou.com>
+ * @author ganyingle 
  * Created on 2022-07-18
  * 118. 杨辉三角 简单
  * 给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。

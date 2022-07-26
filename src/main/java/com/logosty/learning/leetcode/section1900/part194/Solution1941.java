@@ -1,7 +1,7 @@
 package com.logosty.learning.leetcode.section1900.part194;
 
 /**
- * @author ganyingle <ganyingle@kuaishou.com>
+ * @author ganyingle 
  * Created on 2022-07-18
  * description: 1941. 检查是否所有字符出现次数相同 简单
  * 给你一个字符串 s ，如果 s 是一个 好 字符串，请你返回 true ，否则请返回 false 。

@@ -1,7 +1,7 @@
 package com.logosty.learning.leetcode.section1400.part148;
 
 /**
- * @author ganyingle <ganyingle@kuaishou.com>
+ * @author ganyingle 
  * Created on 2022-07-25
  * description: 1480. 一维数组的动态和 简单
  * 给你一个数组 nums 。数组「动态和」的计算公式为：runningSum[i] = sum(nums[0]…nums[i]) 。
