@@ -38,7 +38,23 @@ public class Solution11 {
     }
 
     public static void main(String[] args) {
-        int[] height = {2, 1};
-        System.out.println(new Solution11().maxArea(height));
+        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        System.out.println(new Solution11().maxArea2(height));
+    }
+
+    public int maxArea2(int[] height) {
+        int res = 0;
+        int i = 0;
+        int j = height.length - 1;
+
+        while (i < j) {
+            res = Math.max(res, (j - i) * Math.min(height[i], height[j]));
+            if (height[i] > height[j]) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return res;
     }
 }
