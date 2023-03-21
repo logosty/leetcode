@@ -34,8 +34,32 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class Solution55 {
     public static void main(String[] args) {
-        int[] nums = new int[] {3, 2, 1, 0, 4};
+        int[] nums = new int[] {2, 0, 0};
         System.out.println(new Solution55().canJump(nums));
+    }
+
+    /**
+     * 94%
+     */
+    public boolean canJump2(int[] nums) {
+        if (nums.length == 1) {
+            return true;
+        }
+
+        int energy = 0;
+        for (int i = 0; i < nums.length; i++, energy--) {
+            if (nums[i] > energy) {
+                energy = nums[i];
+            }
+            if (energy + i >= nums.length - 1) {
+                return true;
+            }
+            if (energy == 0) {
+                return false;
+            }
+
+        }
+        return false;
     }
 
     public boolean canJump(int[] nums) {
