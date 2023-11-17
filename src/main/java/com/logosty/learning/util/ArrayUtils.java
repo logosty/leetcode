@@ -1,9 +1,11 @@
 package com.logosty.learning.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.eclipsesource.json.JsonArray;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author logosty(ganyingle) on 2020/6/1 20:17
@@ -71,6 +73,26 @@ public class ArrayUtils {
 
   public static String booleanToString(boolean input) {
     return input ? "True" : "False";
+  }
+
+  public static void printArray(int[] nums) {
+    printArray("数组为: ", nums);
+  }
+
+  public static void printArray(String prefix, int[] nums) {
+    System.out.println(prefix + JSONObject.toJSON(nums));
+  }
+
+  public static int[] createRandomArray() {
+    return createRandomArray(ThreadLocalRandom.current().nextInt());
+  }
+
+  public static int[] createRandomArray(int length) {
+    int[] nums = new int[length];
+    for (int i = 0; i < nums.length; i++) {
+      nums[i] = ThreadLocalRandom.current().nextInt(-length, length);
+    }
+    return nums;
   }
 
   public static void main(String[] args) throws IOException {
