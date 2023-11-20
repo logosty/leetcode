@@ -1,6 +1,7 @@
 package com.logosty.learning.sort;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.logosty.learning.util.ArrayUtils;
 
@@ -43,7 +44,11 @@ public class Quicksort extends AbstractSort {
         int LWin = L - 1;
         int RWin = R + 1;
 
-        int target = nums[R];
+        //加入随机取数，这个时间复杂度就可以收敛到 O(n*logn) 了
+        int nextInt = ThreadLocalRandom.current().nextInt(L, R + 1);
+        int target = nums[nextInt];
+        ArrayUtils.switchOne(nums, nextInt, R);
+
 
         while (curr < RWin) {
             //大于目标值则交换右边界前一位，当前位置先不右滑
