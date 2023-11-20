@@ -1,6 +1,5 @@
-package com.logosty.learning.sort;
+package com.logosty.learning.dataStructureAndAlgorithm.sort;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.logosty.learning.util.ArrayUtils;

@@ -1,4 +1,4 @@
-package com.logosty.learning.sort;
+package com.logosty.learning.dataStructureAndAlgorithm.sort;
 
 import java.util.Arrays;
 

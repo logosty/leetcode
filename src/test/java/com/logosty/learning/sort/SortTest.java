@@ -1,9 +1,11 @@
 package com.logosty.learning.sort;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.logosty.learning.dataStructureAndAlgorithm.sort.DefaultSort;
+import com.logosty.learning.dataStructureAndAlgorithm.sort.Mergesort;
+import com.logosty.learning.dataStructureAndAlgorithm.sort.Quicksort;
 
 public class SortTest {
 

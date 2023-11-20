@@ -1,4 +1,4 @@
-package com.logosty.learning.sort;
+package com.logosty.learning.dataStructureAndAlgorithm.sort;
 
 /**
  * @author logosty(ganyingle) on 2023/11/17 16:37
