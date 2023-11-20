@@ -16,4 +16,9 @@ public class SortTest {
     public void Mergesort() {
         Assert.assertTrue(new Mergesort().sortAndCheckRandom());
     }
+
+    @Test
+    public void Quicksort() {
+        Assert.assertTrue(new Quicksort().sortAndCheckRandom());
+    }
 }

@@ -14,10 +14,10 @@ public abstract class AbstractSort {
         ArrayUtils.printArray(nums);
 
         Arrays.sort(numsCopy);
-        ArrayUtils.printArray("系统排序结果：", numsCopy);
+        ArrayUtils.printArray("系统排序结果:", numsCopy);
 
         this.sort(nums);
-        ArrayUtils.printArray("本算法排序结果：", numsCopy);
+        ArrayUtils.printArray("本法排序结果:", nums);
 
         boolean allPass = true;
         for (int i = 0; i < nums.length; i++) {
@@ -33,7 +33,7 @@ public abstract class AbstractSort {
     }
 
     public boolean sortAndCheckRandom() {
-        return sortAndCheckRandom(10, 30);
+        return sortAndCheckRandom(100, 30);
     }
 
     public boolean sortAndCheckRandom(int checkTimes, int length) {

@@ -75,14 +75,21 @@ public class ArrayUtils {
     return input ? "True" : "False";
   }
 
+  /**
+   * 打印数组
+   */
   public static void printArray(int[] nums) {
-    printArray("数组为: ", nums);
+    printArray("原数组结果为:", nums);
   }
 
   public static void printArray(String prefix, int[] nums) {
     System.out.println(prefix + JSONObject.toJSON(nums));
   }
 
+  /**
+   * 创建一个随机数组
+   * @return
+   */
   public static int[] createRandomArray() {
     return createRandomArray(ThreadLocalRandom.current().nextInt());
   }
@@ -94,6 +101,19 @@ public class ArrayUtils {
     }
     return nums;
   }
+
+  /**
+   * 更换两个值
+   */
+  public static void switchOne(int[] nums, int L, int R) {
+    if (nums[L] == nums[R]) {
+      return;
+    }
+    nums[L] = nums[L] ^ nums[R];
+    nums[R] = nums[L] ^ nums[R];
+    nums[L] = nums[L] ^ nums[R];
+  }
+
 
   public static void main(String[] args) throws IOException {
     BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
