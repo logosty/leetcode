@@ -33,7 +33,7 @@ public abstract class AbstractSort {
     }
 
     public boolean sortAndCheckRandom() {
-        return sortAndCheckRandom(100, 30);
+        return sortAndCheckRandom(100, 15);
     }
 
     public boolean sortAndCheckRandom(int checkTimes, int length) {

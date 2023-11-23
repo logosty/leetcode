@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.logosty.learning.dataStructureAndAlgorithm.sort.DefaultSort;
+import com.logosty.learning.dataStructureAndAlgorithm.sort.HeapSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.Mergesort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.Quicksort;
 
@@ -22,5 +23,10 @@ public class SortTest {
     @Test
     public void Quicksort() {
         Assert.assertTrue(new Quicksort().sortAndCheckRandom());
+    }
+
+    @Test
+    public void HeapSort() {
+        Assert.assertTrue(new HeapSort().sortAndCheckRandom());
     }
 }
