@@ -8,6 +8,7 @@ import com.logosty.learning.dataStructureAndAlgorithm.sort.DefaultSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.HeapSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.Mergesort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.Quicksort;
+import com.logosty.learning.dataStructureAndAlgorithm.sort.RadixSort;
 
 public class SortTest {
 
@@ -34,5 +35,10 @@ public class SortTest {
     @Test
     public void BucketSort() {
         Assert.assertTrue(new BucketSort().sortAndCheckRandom(100, 20));
+    }
+
+    @Test
+    public void RadixSort() {
+        Assert.assertTrue(new RadixSort().sortAndCheckRandom(100, 100));
     }
 }
