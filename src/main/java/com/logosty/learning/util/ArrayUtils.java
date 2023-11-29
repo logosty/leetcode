@@ -97,7 +97,7 @@ public class ArrayUtils {
   public static int[] createRandomArray(int length) {
     int[] nums = new int[length];
     for (int i = 0; i < nums.length; i++) {
-      nums[i] = ThreadLocalRandom.current().nextInt(-length, length);
+      nums[i] = ThreadLocalRandom.current().nextInt(1, 2 * length);
     }
     return nums;
   }

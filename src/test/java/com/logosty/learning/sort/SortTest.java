@@ -3,6 +3,7 @@ package com.logosty.learning.sort;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.logosty.learning.dataStructureAndAlgorithm.sort.BucketSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.DefaultSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.HeapSort;
 import com.logosty.learning.dataStructureAndAlgorithm.sort.Mergesort;
@@ -28,5 +29,10 @@ public class SortTest {
     @Test
     public void HeapSort() {
         Assert.assertTrue(new HeapSort().sortAndCheckRandom());
+    }
+
+    @Test
+    public void BucketSort() {
+        Assert.assertTrue(new BucketSort().sortAndCheckRandom(100, 20));
     }
 }
