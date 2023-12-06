@@ -17,14 +17,15 @@ public class UnionFind<T> {
         }
     }
 
-    private Map<T, Node<T>> nodeMap;
-    private Map<Node<T>, Node<T>> fatherMap;
-    private Map<Node<T>, Integer> sizeMap;
+    private Map<T, Node<T>> nodeMap = new HashMap<>();
+    private Map<Node<T>, Node<T>> fatherMap = new HashMap<>();
+    private Map<Node<T>, Integer> sizeMap = new HashMap<>();
+
+    public UnionFind() {
+
+    }
 
     public UnionFind(T... values) {
-        nodeMap = new HashMap<>();
-        fatherMap = new HashMap<>();
-        sizeMap = new HashMap<>();
 
         for (T value : values) {
             Node<T> node = new Node<>(value);
@@ -35,7 +36,7 @@ public class UnionFind<T> {
     }
 
     //往并查集中加一个新的集合
-    private Node<T> addOneValue(T value) {
+    public Node<T> addOneValue(T value) {
         Node<T> node = new Node<>(value);
         nodeMap.put(value, node);
         fatherMap.put(node, node);
@@ -64,6 +65,9 @@ public class UnionFind<T> {
         Stack<Node<T>> stack = new Stack<>();
 
         while (fatherMap.containsKey(node)) {
+            if (fatherMap.get(node) == node) {
+                break;
+            }
             stack.push(node);
             node = fatherMap.get(node);
         }
@@ -92,6 +96,10 @@ public class UnionFind<T> {
         Node<T> fatherA = findFather(nodeA);
         Node<T> fatherB = findFather(nodeB);
 
+        if (fatherA == fatherB) {
+            return;
+        }
+
         //获取集合的size，小挂大
         int sizeA = sizeMap.get(fatherA);
         int sizeB = sizeMap.get(fatherB);
@@ -100,18 +108,20 @@ public class UnionFind<T> {
         Node<T> bigNode;
 
         if (sizeA < sizeB) {
-            smallNode = nodeA;
+            smallNode = fatherA;
         } else {
-            smallNode = nodeB;
+            smallNode = fatherB;
         }
-        bigNode = smallNode == nodeA ? nodeB : nodeA;
+        bigNode = smallNode == fatherA ? fatherB : fatherA;
 
         //调整小集合指针到大集合
         fatherMap.put(smallNode, bigNode);
-        fatherMap.remove(smallNode);
 
         sizeMap.remove(smallNode);
         sizeMap.put(bigNode, sizeA + sizeB);
     }
 
+    public int setCount() {
+        return sizeMap.size();
+    }
 }
