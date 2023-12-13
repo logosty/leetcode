@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.LRCPart;
+package com.logosty.learning.leetcode.LCRPart;
 
 /**
  * LCR 170. 交易逆序对的总数 困难
