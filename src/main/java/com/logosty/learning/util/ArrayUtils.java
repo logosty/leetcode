@@ -121,7 +121,7 @@ public class ArrayUtils {
     while ((line = in.readLine()) != null) {
       int[][] matrix = stringToInt2dArray(line);
 
-//      boolean ret = new Solution().isToeplitzMatrix(matrix);
+//      boolean ret = new SolutionMonsterDie().isToeplitzMatrix(matrix);
 //
 //      String out = booleanToString(ret);
 //

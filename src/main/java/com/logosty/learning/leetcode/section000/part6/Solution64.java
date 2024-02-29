@@ -1,7 +1,5 @@
 package com.logosty.learning.leetcode.section000.part6;
 
-import com.logosty.learning.dataStructureAndAlgorithm.dynamicprogramming.MinPathSum;
-
 /**
  * @author logosty(ganyingle) on 2023/12/25 18:25
  * description: 64 最小路径和 中等
@@ -94,7 +92,7 @@ public class Solution64 {
 
     public static void main(String[] args) {
         int[][] m = {{1, 2, 3, 4, 5, 6, 7}, {2, 3, 4, 5, 6, 7, 8}, {2, 3, 4, 5, 6, 7, 8}};
-        System.out.println(new MinPathSum().minPathSum(m));
-        System.out.println(new MinPathSum().minPathSum2(m));
+        System.out.println(new Solution64().minPathSum(m));
+        System.out.println(new Solution64().minPathSum2(m));
     }
 }
