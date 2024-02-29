@@ -1,5 +1,6 @@
 package com.logosty.learning.dataStructureAndAlgorithm.dynamicprogramming;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +58,10 @@ public class SolutionMonsterDie {
                 for (int k = 0; k <= M && j - k >= 0; k++) {
                     thisWays += dp[i - 1][j - k];
                 }
+                //已经砍成负数的情况得补回来
+                if (M > j) {
+                    thisWays += M - j;
+                }
 
                 dp[i][j] = thisWays;
             }
@@ -70,12 +75,14 @@ public class SolutionMonsterDie {
      */
     public long dp2(int time, int M, int hp) {
         long[][] dp = new long[time + 1][hp + 1];
-        for (int i = 0; i <= time; i++) {
-            dp[i][0] = 1;
-        }
+        dp[0][0] = 1;
 
         for (int i = 1; i <= time; i++) {
-            for (int j = 1; j <= hp; j++) {
+            for (int j = 0; j <= hp; j++) {
+                if (j == 0) {
+                    dp[i][j] = (long) Math.pow(M+1, i);
+                    continue;
+                }
                 long thisWays = dp[i - 1][j];
 
                 //前面的数已经计算过一遍了
@@ -83,6 +90,8 @@ public class SolutionMonsterDie {
                 //去掉重复多计算的
                 if (j - M - 1 >= 0) {
                     thisWays -= dp[i - 1][j - M - 1];
+                } else {
+                    thisWays -= (long) Math.pow(M+1, i - 1);
                 }
 
                 dp[i][j] = thisWays;
