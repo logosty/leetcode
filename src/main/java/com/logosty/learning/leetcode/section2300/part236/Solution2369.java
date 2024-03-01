@@ -1,5 +1,8 @@
 package com.logosty.learning.leetcode.section2300.part236;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author logosty(ganyingle) on 2024/3/1 17:26
  * description: 2369.检查数组是否存在有效划分 中等
@@ -33,6 +36,8 @@ package com.logosty.learning.leetcode.section2300.part236;
  * 1 <= nums[i] <= 106
  */
 public class Solution2369 {
+    private Map<String, Boolean> cache = new HashMap<>();
+
     public boolean validPartition(int[] nums) {
         if (nums.length <= 1) {
             return false;
@@ -47,39 +52,68 @@ public class Solution2369 {
         if (currentIndex >= nums.length) {
             return false;
         }
+        String key = startIndex + "_" + currentIndex;
+        if (cache.containsKey(key)) {
+            return cache.get(key);
+        }
+        boolean result = false;
         //相邻
         if (currentIndex == startIndex + 1) {
             //相等
             if (nums[currentIndex] == nums[startIndex]) {
-                return validPartitionCount(nums, startIndex, currentIndex + 1) ||
+                result = validPartitionCount(nums, startIndex, currentIndex + 1) ||
                         //截断重新开始
                         validPartitionCount(nums, currentIndex + 1, currentIndex + 2);
             } else {
                 //不相等且不连续
                 if (nums[currentIndex] != nums[startIndex] + 1) {
-                    return false;
+                    result = false;
+                } else {
+                    //不相等但连续
+                    result = validPartitionCount(nums, startIndex, currentIndex + 1);
                 }
-                //不相等但连续
-                return validPartitionCount(nums, startIndex, currentIndex + 1);
             }
         } else {
             //保证传递下来的必是相等或者已经连续两个
             //相等的情况
             if (nums[startIndex] == nums[startIndex + 1]) {
-                return nums[startIndex] == nums[currentIndex]
+                result = nums[startIndex] == nums[currentIndex]
                         //截断重新开始
                         && validPartitionCount(nums, currentIndex + 1, currentIndex + 2);
             } else {
                 //连续的情况
-                return nums[startIndex] == nums[currentIndex] - 2
+                result = nums[startIndex] == nums[currentIndex] - 2
                         //截断重新开始
                         && validPartitionCount(nums, currentIndex + 1, currentIndex + 2);
             }
         }
+        cache.put(key, result);
+        return result;
     }
 
     public static void main(String[] args) {
-        int[] ints = new int[]{1,1,3,3,4,5};
+        int[] ints = new int[]{1,1,1,3,4,5};
         System.out.println(new Solution2369().validPartition(ints));
     }
+
+//    public boolean dp(int[] nums){
+//        int length = nums.length;
+//        boolean[][] dp = new boolean[length + 1][length + 1];
+//
+//        for (int i = 0; i <= length; i++) {
+//            dp[length][i] = false;
+//        }
+//        for (int i = 0; i <= length; i++) {
+//            dp[i][length] = true;
+//        }
+//
+//        //从下往上填
+//        for (int i = length - 1; i >= 1; i--) {
+//            for (int j = 0; j <= length; j++) {
+//                if (j - i >=3) {
+//                }
+//            }
+//        }
+//    }
+
 }
