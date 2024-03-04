@@ -93,8 +93,7 @@ public class Solution114 {
             tail = leftTail;
         }
         if (right != null) {
-            TreeNode rightTail = doRefactor(right);
-            tail = rightTail;
+            tail = doRefactor(right);
         }
 
         return tail;
