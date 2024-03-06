@@ -23,9 +23,27 @@ import com.alibaba.fastjson.JSON;
  * 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组不被视为额外空间。）
  */
 public class Solution238 {
+  public int[] productExceptSelf(int[] nums) {
+    int length = nums.length;
+    int[] output = new int[length];
+    output[length - 1] = nums[length - 1];
+
+    for (int i = length - 2; i >= 0; i--) {
+      output[i] = nums[i] * output[i + 1];
+    }
+    output[0] = output[1];
+
+    int lastProducts = nums[0];
+    for (int i = 1; i < length - 1; i++) {
+      output[i] = output[i + 1] * lastProducts;
+      lastProducts *= nums[i];
+    }
+    output[length - 1] = lastProducts;
+    return output;
+  }
 
   //空间复杂度 1
-  public int[] productExceptSelf(int[] nums) {
+  public int[] productExceptSelf1(int[] nums) {
     int length = nums.length;
     int[] ret = new int[length];
     ret[0] = nums[0];
