@@ -39,6 +39,26 @@ package com.logosty.learning.leetcode.section000.part4;
  */
 public class Solution45 {
     public int jump(int[] nums) {
+        if (nums.length <= 1) {
+            return 0;
+        }
+        int start = 1;
+        int end = nums[0];
+        int step = 1;
+        int maxIndex = nums[0];
+
+        while (maxIndex < nums.length - 1) {
+            for (int i = start; i <= end && i < nums.length; i++) {
+                maxIndex = Math.max(maxIndex, i + nums[i]);
+            }
+            start = end + 1;
+            end = maxIndex;
+            step++;
+        }
+        return step;
+    }
+
+    public int jump2(int[] nums) {
         int length = nums.length;
         if (length <= 2) {
             return length - 1;
