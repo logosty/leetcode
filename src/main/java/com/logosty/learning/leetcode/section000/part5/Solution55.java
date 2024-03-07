@@ -33,8 +33,22 @@ import com.alibaba.fastjson.JSONObject;
  * 击败 5.1%
  */
 public class Solution55 {
+    public boolean canJump(int[] nums) {
+        if (nums.length == 1) {
+            return true;
+        }
+        int maxIndex = nums[0];
+
+        for (int i = 1; i <= maxIndex && i < nums.length - 1; i++) {
+            maxIndex = Math.max(maxIndex, i + nums[i]);
+        }
+
+        return maxIndex >= nums.length - 1;
+    }
+
+
     public static void main(String[] args) {
-        int[] nums = new int[] {2, 0, 0};
+        int[] nums = new int[] {1,2,3};
         System.out.println(new Solution55().canJump(nums));
     }
 
@@ -62,7 +76,7 @@ public class Solution55 {
         return false;
     }
 
-    public boolean canJump(int[] nums) {
+    public boolean canJump3(int[] nums) {
         if (nums.length == 1) {
             return true;
         }
