@@ -42,7 +42,7 @@ public class Solution79 {
         boolean[][] hasUsed = new boolean[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (search(board, word, hasUsed, i, j)) {
+                if (search(board, word, 0, hasUsed, i, j)) {
                     return true;
                 }
             }
@@ -52,11 +52,14 @@ public class Solution79 {
     }
 
     /**
-     * 204ms
-     * 击败27.94%使用 Java 的用户
+     * 147
+     * ms
+     * 击败
+     * 56.20%
+     * 使用 Java 的用户
      */
-    private boolean search(char[][] board, String word, boolean[][] hasUsed, int curX, int curY) {
-        if (word.isEmpty()) {
+    private boolean search(char[][] board, String word, int wordIndex, boolean[][] hasUsed, int curX, int curY) {
+        if (wordIndex >= word.length()) {
             return true;
         }
 
@@ -70,27 +73,26 @@ public class Solution79 {
             return false;
         }
 
-        if (word.charAt(0) != board[curX][curY]) {
+        if (word.charAt(wordIndex) != board[curX][curY]) {
             return false;
         }
         hasUsed[curX][curY] = true;
-        word = word.substring(1);
 
-        boolean res = search(board, word, hasUsed, curX + 1, curY);
+        boolean res = search(board, word, wordIndex + 1, hasUsed, curX + 1, curY);
         if (res) {
             return true;
         }
-        res = search(board, word, hasUsed, curX - 1, curY);
-        if (res) {
-            return true;
-        }
-
-        res = search(board, word, hasUsed, curX, curY + 1);
+        res = search(board, word, wordIndex + 1, hasUsed, curX - 1, curY);
         if (res) {
             return true;
         }
 
-        res = search(board, word, hasUsed, curX, curY - 1);
+        res = search(board, word, wordIndex + 1, hasUsed, curX, curY + 1);
+        if (res) {
+            return true;
+        }
+
+        res = search(board, word, wordIndex + 1, hasUsed, curX, curY - 1);
         if (res) {
             return true;
         }
