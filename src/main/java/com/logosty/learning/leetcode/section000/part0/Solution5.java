@@ -51,7 +51,46 @@ public class Solution5 {
     }
 
 
+
+    //464ms击败5.89%使用 Java 的用户
     public String longestPalindrome(String s) {
+        if (s.length() <= 2) {
+            return s.charAt(0) == s.charAt(s.length() - 1) ? s : s.substring(0, 1);
+        }
+
+        String onlyOne = s.substring(0, 1);
+        int length = s.length();
+        String[][] dp = new String[length][length];
+        dp[length - 1][length - 1] = onlyOne;
+
+        for (int i = length - 2; i >= 0; i--) {
+            dp[i][i] = onlyOne;
+            dp[i][i + 1] = s.charAt(i) == s.charAt(i + 1) ? s.substring(i, i + 2) : onlyOne;
+
+            for (int j = i + 2; j < length; j++) {
+                String res = "";
+                if (s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1].length() == j - i - 1) {
+                    res = s.substring(i, j + 1);
+                }
+
+                String s2 = dp[i + 1][j];
+                if (s2.length() > res.length()) {
+                    res = s2;
+                }
+
+                String s3 = dp[i][j - 1];
+                if (s3.length() > res.length()) {
+                    res = s3;
+                }
+
+                dp[i][j] = res;
+            }
+        }
+        return dp[0][s.length() - 1];
+    }
+
+
+    public String longestPalindrome2(String s) {
         if (s.length() == 0) {
             return "";
         }
@@ -110,7 +149,7 @@ public class Solution5 {
     public static void main(String[] args) {
         long begin = System.currentTimeMillis();
 //        String s = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
-        String s = "abcdbbfcba";
+        String s = "abcda";
         System.out.println(new Solution5().longestPalindrome(s));
         long end = System.currentTimeMillis();
         System.out.println("time:" + (end - begin));
