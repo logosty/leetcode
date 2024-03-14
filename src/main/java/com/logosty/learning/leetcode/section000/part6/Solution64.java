@@ -34,9 +34,6 @@ public class Solution64 {
         return process(m, 0, 0);
     }
 
-    public int minPathSum2(int[][] m) {
-        return dp(m);
-    }
 
     /**
      * 当前处于x,y位置，返回到目标位置的最小值
@@ -68,31 +65,30 @@ public class Solution64 {
         return m[x][y] + Math.min(p1, p2);
     }
 
-    public int dp(int[][] m) {
-        int length = m.length;
-        int weight = m[0].length;
+    public int minPathSumDp(int[][] grid) {
+        int length = grid.length;
+        int weight = grid[0].length;
 
-        int[][] dp = new int[length][weight];
-        dp[length - 1][weight - 1] = m[length - 1][weight - 1];
-        for (int i = length - 2; i >= 0; i--) {
-            dp[i][weight - 1] = dp[i + 1][weight - 1] + m[i][weight - 1];
-        }
-        for (int i = weight - 2; i >= 0; i--) {
-            dp[length - 1][i] = dp[length - 1][i + 1] + m[length - 1][i];
+        int[] dp = new int[weight];
+        dp[0] = grid[0][0];
+        for (int i = 1; i < weight; i++) {
+            dp[i] = grid[0][i] + dp[i - 1];
         }
 
-        for (int i = length - 2; i >= 0; i--) {
-            for (int j = weight - 2; j >= 0; j--) {
-                dp[i][j] = Math.min(dp[i + 1][j], dp[i][j + 1]) + m[i][j];
+        for (int i = 1; i < length; i++) {
+            dp[0] += grid[i][0];
+            for (int j = 1; j < weight; j++) {
+                dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
             }
         }
-        return dp[0][0];
+        return dp[weight - 1];
+
     }
 
 
     public static void main(String[] args) {
         int[][] m = {{1, 2, 3, 4, 5, 6, 7}, {2, 3, 4, 5, 6, 7, 8}, {2, 3, 4, 5, 6, 7, 8}};
         System.out.println(new Solution64().minPathSum(m));
-        System.out.println(new Solution64().minPathSum2(m));
+        System.out.println(new Solution64().minPathSumDp(m));
     }
 }
