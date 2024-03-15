@@ -44,7 +44,8 @@ package com.logosty.learning.leetcode.section000.part9;
 public class Solution97 {
 
     //25ms击败5.08%使用 Java 的用户
-    public boolean isInterleave(String s1, String s2, String s3) {
+    //3参数
+    public boolean isInterleave2(String s1, String s2, String s3) {
         int l1 = s1.length();
         int l2 = s2.length();
         int l3 = s3.length();
@@ -86,4 +87,48 @@ public class Solution97 {
 
         return dp[l2][l1];
     }
+
+    //2ms击败90.30%使用 Java 的用户
+    public boolean isInterleave(String s1, String s2, String s3) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+        int l3 = s3.length();
+
+        if (l1 + l2 != l3) {
+            return false;
+        }
+        boolean[] dp = new boolean[l2 + 1];
+        //初始化第0层
+        dp[0] = true;
+
+        for (int floor = 1; floor <= l3; floor++) {
+            char tailChar = s3.charAt(floor - 1);
+
+            boolean lastRes = dp[0];
+            dp[0] = dp[0] && floor <= l1 && (tailChar == s1.charAt(floor - 1));
+
+            //s2取的长度
+            for (int i = 1; i <= l2; i++) {
+                int tmpL1 = floor - i;
+                if (tmpL1 > l1) {
+                    lastRes = dp[i];
+                    dp[i] = false;
+                    continue;
+                }
+
+                boolean r1 = dp[i] && (tmpL1 != 0 && tailChar == s1.charAt(tmpL1 - 1));
+                boolean r2 = lastRes && tailChar == s2.charAt(i - 1);
+
+                lastRes = dp[i];
+                dp[i] = r1 || r2;
+            }
+        }
+
+        return dp[l2];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution97().isInterleave("aa","ab","aaab"));
+    }
+
 }
