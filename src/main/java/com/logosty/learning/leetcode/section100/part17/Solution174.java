@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.section300.part37;
+package com.logosty.learning.leetcode.section100.part17;
 
 /**
  * @author ganyingle 
