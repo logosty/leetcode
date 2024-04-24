@@ -1,13 +1,5 @@
 package com.logosty.learning.leetcode.section2300.part238;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.logosty.learning.util.pojo.TreeNode;
 
 /**
@@ -51,68 +43,43 @@ import com.logosty.learning.util.pojo.TreeNode;
  * 树中必定存在值为 start 的节点
  */
 public class Solution2385 {
-    Map<Integer, Point> pointMap = new HashMap<>();
-
-    class Point {
-        List<Point> points = new ArrayList<>();
-    }
-
+    int res;
     public int amountOfTime(TreeNode root, int start) {
-        Point point = new Point();
-        pointMap.put(start, point);
-        dfs(root, point);
-        return infection(pointMap.get(start));
-    }
-
-    //从当前节点开始，层次遍历完所有节点
-    private int infection(Point point) {
-        Set<Point> hasLoopCache = new HashSet<>();
-        ArrayDeque<Point> deque = new ArrayDeque<>();
-        deque.addLast(point);
-        hasLoopCache.add(point);
-
-        int res = 0;
-        while (!deque.isEmpty()) {
-
-            int size = deque.size();
-            for (int i = 0; i < size; i++) {
-                Point pop = deque.pollFirst();
-
-                for (Point point1 : pop.points) {
-                    if (!hasLoopCache.contains(point1)) {
-                        deque.addLast(point1);
-                        hasLoopCache.add(point1);
-                    }
-                }
-
-            }
-            res++;
-        }
-
+        dfs(root, start);
         return res - 1;
     }
 
-    /**
-     * 构造并将自己的孩子点连入自己
-     *
-     * @param root 当前节点
-     * @param point 当前节点所对应的点
-     */
-    private void dfs(TreeNode root, Point point) {
-        if (root.left != null) {
-            Point left = new Point();
-            left.points.add(point);
-            pointMap.put(root.left.val, left);
-            point.points.add(left);
-            dfs(root.left, left);
+
+    //返回包含该节点的最大深度
+    private Info dfs(TreeNode root, int start) {
+        Info info = new Info();
+        if (root == null) {
+            return info;
         }
-        if (root.right != null) {
-            Point right = new Point();
-            right.points.add(point);
-            pointMap.put(root.right.val, right);
-            point.points.add(right);
-            dfs(root.right, right);
+        //当前节点已经是了
+        Info leftInfo = dfs(root.left, start);
+        Info rightInfo = dfs(root.right, start);
+        if (root.val == start) {
+            res = Math.max(res, Math.max(leftInfo.length, rightInfo.length) + 1);
+            info.hasTarget = true;
+            info.length = 1;
+            return info;
         }
+
+        //都不包含，就返回最大值
+        if (!leftInfo.hasTarget && !rightInfo.hasTarget) {
+            info.length = Math.max(leftInfo.length, rightInfo.length) + 1;
+            return info;
+        }
+
+        info.hasTarget = true;
+        res = Math.max(res, leftInfo.length + rightInfo.length + 1);
+        info.length = 1 + (leftInfo.hasTarget ? leftInfo.length : rightInfo.length);
+        return info;
     }
 
+    class Info {
+        boolean hasTarget;
+        int length;
+    }
 }
