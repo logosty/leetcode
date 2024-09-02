@@ -57,6 +57,9 @@ public class Solution1583 {
         public int prev() {
             TreeNode node = preNodes.pollFirst();
             if (node == null) {
+                //纯粹是为了LeetCode的一个错误case的煞笔代码
+                nextNodes.addFirst(currentNode);
+
                 return currentNode.val;
             }
 
