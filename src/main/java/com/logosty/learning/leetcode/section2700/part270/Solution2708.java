@@ -3,6 +3,7 @@ package com.logosty.learning.leetcode.section2700.part270;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.LongStream;
 
 /**
  * @author logosty(ganyingle) on 2024/9/3 10:28
@@ -66,4 +67,28 @@ public class Solution2708 {
 
         return list.stream().reduce((a, b) -> a * b).orElse(0L);
     }
+
+    public long maxStrength2(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        long min = nums[0];
+        long max = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            long tmpMin = min;
+            //最小值
+            min = LongStream.of(num, min, min * num, max * num).min().getAsLong();
+            //最大值
+            max = LongStream.of(num, max, max * num, tmpMin * num).max().getAsLong();
+        }
+
+        for (int num : nums) {
+
+
+        }
+        return max;
+    }
+
 }
