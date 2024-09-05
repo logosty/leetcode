@@ -1,4 +1,4 @@
-package com.logosty.learning.leetcode.section2000;
+package com.logosty.learning.leetcode.section2000.part200;
 
 import java.util.ArrayList;
 import java.util.List;
