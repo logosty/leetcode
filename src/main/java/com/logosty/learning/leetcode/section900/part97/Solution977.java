@@ -25,23 +25,23 @@ package com.logosty.learning.leetcode.section900.part97;
  */
 public class Solution977 {
 
-  public int[] sortedSquares(int[] A) {
-    if (A == null || A.length == 0) {
+  public int[] sortedSquares(int[] nums) {
+    if (nums == null || nums.length == 0) {
       return new int[0];
     }
-    int[] res = new int[A.length];
+    int[] res = new int[nums.length];
 
     int left = 0;
-    int right = A.length - 1;
+    int right = nums.length - 1;
     int offset = res.length - 1;
 
     while (right >= left) {
-      if (A[right] >= Math.abs(A[left])) {
-        res[offset] = A[right] * A[right];
+      if (nums[right] >= Math.abs(nums[left])) {
+        res[offset] = nums[right] * nums[right];
         offset--;
         right--;
       } else {
-        res[offset] = A[left] * A[left];
+        res[offset] = nums[left] * nums[left];
         offset--;
         left++;
       }
