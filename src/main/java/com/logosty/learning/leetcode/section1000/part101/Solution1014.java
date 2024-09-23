@@ -24,13 +24,13 @@ package com.logosty.learning.leetcode.section1000.part101;
  * 1 <= A[i] <= 1000
  */
 public class Solution1014 {
-  public int maxScoreSightseeingPair(int[] A) {
-    int maxLast = A[0];
+  public int maxScoreSightseeingPair(int[] values) {
+    int maxLast = values[0];
     int maxRet = 0;
 
-    for (int i = 1; i < A.length; i++) {
-      maxRet = Math.max(maxRet, A[i] - i + maxLast);
-      maxLast = Math.max(maxLast, A[i] + i);
+    for (int i = 1; i < values.length; i++) {
+      maxRet = Math.max(maxRet, values[i] - i + maxLast);
+      maxLast = Math.max(maxLast, values[i] + i);
     }
     return maxRet;
   }
