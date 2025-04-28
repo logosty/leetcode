@@ -1,7 +1,5 @@
 package com.logosty.learning.leetcode.section100.part13;
 
-import java.util.stream.IntStream;
-
 /**
  * @author logosty(ganyingle) on 2020/12/24 10:08
  * 135. 分发糖果 困难
@@ -40,6 +38,29 @@ public class Solution135 {
                 cache[i] = cache[i - 1] + 1;
                 continue;
             }
+            cache[i] = 1;
+        }
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1]) {
+                cache[i] = Math.max(cache[i], cache[i + 1] + 1);
+            }
+        }
+        int sum = 0;
+        for (int i : cache) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    public int candy1(int[] ratings) {
+        int[] cache = new int[ratings.length];
+        cache[0] = 1;
+        for (int i = 1; i < ratings.length; i++) {
+            //后面大于前面的，就加1就行
+            if (ratings[i] > ratings[i - 1]) {
+                cache[i] = cache[i - 1] + 1;
+                continue;
+            }
 
             //后面等于前面的，后面的重置为1
             if (ratings[i] == ratings[i - 1]) {
@@ -58,46 +79,10 @@ public class Solution135 {
                 cache[j] = cache[j + 1] + 1;
             }
         }
-        return IntStream.of(cache).sum();
-    }
-
-    /**
-     * 执行用时：
-     * 548 ms
-     * , 在所有 Java 提交中击败了
-     * 8.18%
-     * 的用户
-     * 内存消耗：
-     * 39.3 MB
-     * , 在所有 Java 提交中击败了
-     * 89.74%
-     * 的用户
-     */
-    public int candy1(int[] ratings) {
-        if (ratings.length == 0) {
-            return 0;
+        int sum = 0;
+        for (int i : cache) {
+            sum += i;
         }
-        if (ratings.length == 1) {
-            return 1;
-        }
-
-        int[] cache = new int[ratings.length];
-
-        cache[0] = 1;
-        for (int i = 1; i < ratings.length; i++) {
-            if (ratings[i] > ratings[i - 1]) {
-                cache[i] = cache[i - 1] + 1;
-                continue;
-            }
-
-            cache[i] = 1;
-
-            int j = i;
-            while (j >= 1 && ratings[j - 1] > ratings[j] && cache[j] >= cache[j - 1]) {
-                cache[j - 1]++;
-                j--;
-            }
-        }
-        return IntStream.of(cache).sum();
+        return sum;
     }
 }
