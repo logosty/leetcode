@@ -1,5 +1,7 @@
 package com.logosty.learning.util.pojo;
 
+import java.util.List;
+
 /**
  * @author logosty(ganyingle) on 2020/10/15 17:16
  */
@@ -9,6 +11,8 @@ public class Node {
   public Node left;
   public Node right;
   public Node next;
+  public List<Node> children;
+  public Node random;
 
   public Node() {
   }
@@ -22,5 +26,10 @@ public class Node {
     left = _left;
     right = _right;
     next = _next;
+  }
+
+  public Node(int _val, List<Node> _children) {
+    val = _val;
+    children = _children;
   }
 }

@@ -1,7 +1,7 @@
 package com.logosty.learning.leetcode.section500.part55;
 
 
-import com.logosty.learning.util.pojo2.Node;
+import com.logosty.learning.util.pojo.Node;
 
 /**
  * @author logosty(ganyingle) on 2020/11/19 11:28
