@@ -62,6 +62,40 @@ public class Solution1143 {
         return dp[l2];
     }
 
+    public int longestCommonSubsequence1(String text1, String text2) {
+        int[][] dp = new int[text1.length()][text2.length()];
+        char[] charArray1 = text1.toCharArray();
+        char[] charArray2 = text2.toCharArray();
+
+        dp[0][0] = charArray1[0] == charArray2[0] ? 1 : 0;
+        //构建第一行
+        for (int i = 1; i < dp[0].length; i++) {
+            if (dp[0][i - 1] == 1) {
+                dp[0][i] = 1;
+                continue;
+            }
+            dp[0][i] = charArray1[0] == charArray2[i] ? 1 : 0;
+        }
+        //构建第一列
+        for (int i = 1; i < dp.length; i++) {
+            if (dp[i - 1][0] == 1) {
+                dp[i][0] = 1;
+                continue;
+            }
+            dp[i][0] = charArray2[0] == charArray1[i] ? 1 : 0;
+        }
+
+        for (int row = 1; row < dp.length; row++) {
+            for (int col = 1; col < dp[0].length; col++) {
+                int cur = dp[row - 1][col - 1] + (charArray1[row] == charArray2[col] ? 1 : 0);
+                cur = Math.max(cur, dp[row][col - 1]);
+                cur = Math.max(cur, dp[row - 1][col]);
+                dp[row][col] = cur;
+            }
+        }
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+
     public static void main(String[] args) {
         System.out.println(new Solution1143().longestCommonSubsequence("aaaa", "aaaa"));
     }
