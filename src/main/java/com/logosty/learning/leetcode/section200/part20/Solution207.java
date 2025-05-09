@@ -1,12 +1,6 @@
 package com.logosty.learning.leetcode.section200.part20;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author logosty(ganyingle) on 2021/1/19 15:19
@@ -38,41 +32,45 @@ import java.util.Set;
  * 1 <= numCourses <= 10^5
  */
 public class Solution207 {
+    boolean ret = true;
+    int[] visited;
+    ArrayList<Integer>[] linked;
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Set<Integer> allSet = new HashSet<>();
-        int[] indegrees = new int[numCourses];
-        Map<Integer, List<Integer>> graph = new HashMap<>();
-
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        linked = new ArrayList[numCourses];
+        visited = new int[numCourses];
         for (int[] prerequisite : prerequisites) {
-            indegrees[prerequisite[1]]++;
-            List<Integer> list = graph.getOrDefault(prerequisite[0], new ArrayList<>());
-            list.add(prerequisite[1]);
-            graph.put(prerequisite[0], list);
-
-            allSet.add(prerequisite[0]);
-            allSet.add(prerequisite[1]);
-        }
-        for (Integer i : allSet) {
-            if (indegrees[i] == 0) {
-                stack.addLast(i);
+            int from = prerequisite[0];
+            int to = prerequisite[1];
+            if (linked[from] == null) {
+                linked[from] = new ArrayList<>();
             }
+
+            linked[from].add(to);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            dfs(i);
         }
 
-        while (!stack.isEmpty()) {
-            int i = stack.pollFirst();
-            List<Integer> list = graph.getOrDefault(i, new ArrayList<>());
+        return ret;
+    }
 
-            for (int linked : list) {
-                indegrees[linked]--;
-                if (indegrees[linked] == 0) {
-                    stack.addLast(linked);
-                }
-            }
-            allSet.remove(i);
+    private void dfs(int i) {
+        ArrayList<Integer> list = linked[i];
+        if (list == null || visited[i] == 1 || !ret) {
+            return;
         }
-        return allSet.isEmpty();
+        if (visited[i] == -1) {
+            ret = false;
+            return;
+        }
+
+        //将该值标成处理中
+        visited[i] = -1;
+        for (int to : list) {
+            dfs(to);
+        }
+        visited[i] = 1;
     }
 
 }
