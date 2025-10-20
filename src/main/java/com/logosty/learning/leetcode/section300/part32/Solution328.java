@@ -5,67 +5,63 @@ import com.logosty.learning.util.pojo.ListNode;
 /**
  * @author logosty(ganyingle) on 2020/11/13 14:07
  * 328. 奇偶链表 中等
- * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
- *
- * 请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
- *
+ * 给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别分组，保持它们原有的相对顺序，然后把偶数索引节点分组连接到奇数索引节点分组之后，返回重新排序的链表。
+ * <p>
+ * 第一个节点的索引被认为是 奇数 ， 第二个节点的索引为 偶数 ，以此类推。
+ * <p>
+ * 请注意，偶数组和奇数组内部的相对顺序应该与输入时保持一致。
+ * <p>
+ * 你必须在 O(1) 的额外空间复杂度和 O(n) 的时间复杂度下解决这个问题。
+ * <p>
+ * <p>
+ * <p>
  * 示例 1:
- *
- * 输入: 1->2->3->4->5->NULL
- * 输出: 1->3->5->2->4->NULL
+ * <p>
+ * <p>
+ * <p>
+ * 输入: head = [1,2,3,4,5]
+ * 输出: [1,3,5,2,4]
  * 示例 2:
- *
- * 输入: 2->1->3->5->6->4->7->NULL
- * 输出: 2->3->6->7->1->5->4->NULL
- * 说明:
- *
- * 应当保持奇数节点和偶数节点的相对顺序。
- * 链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
+ * <p>
+ * <p>
+ * <p>
+ * 输入: head = [2,1,3,5,6,4,7]
+ * 输出: [2,3,6,7,1,5,4]
+ * <p>
+ * <p>
+ * 提示:
+ * <p>
+ * n ==  链表中的节点数
+ * 0 <= n <= 104
+ * -106 <= Node.val <= 106
  */
 public class Solution328 {
 
-  /**
-   * 执行用时：
-   * 0 ms
-   * , 在所有 Java 提交中击败了
-   * 100.00%
-   * 的用户
-   * 内存消耗：
-   * 38.3 MB
-   * , 在所有 Java 提交中击败了
-   * 76.48%
-   * 的用户
-   */
-  public ListNode oddEvenList(ListNode head) {
-    if (head == null || head.next == null || head.next.next == null) {
-      return head;
+    public ListNode oddEvenList(ListNode head) {
+        ListNode oddLink = new ListNode(0);
+        ListNode evenHead = new ListNode(0);
+        ListNode evenLink = evenHead;
+
+        if (head == null || head.next == null || head.next.next == null) {
+            return head;
+        }
+
+        ListNode cur = head;
+        boolean oddFlag = true;
+        while (cur != null) {
+            if (oddFlag) {
+                oddLink.next = cur;
+                oddLink = oddLink.next;
+            } else {
+                evenLink.next = cur;
+                evenLink = evenLink.next;
+            }
+            oddFlag = !oddFlag;
+            cur = cur.next;
+        }
+        evenLink.next = null;
+        oddLink.next = evenHead.next;
+
+        return head;
     }
-
-    ListNode oddHead = new ListNode(-1);
-    ListNode evenHead = new ListNode(-1);
-    ListNode oddTail = oddHead;
-    ListNode evenTail = evenHead;
-
-    ListNode cur = head;
-    boolean odd = true;
-    while (cur != null) {
-      if (odd) {
-        oddTail.next = cur;
-        oddTail = cur;
-        odd = false;
-      } else {
-        evenTail.next = cur;
-        evenTail = cur;
-        odd = true;
-      }
-
-      ListNode tmp = cur.next;
-      cur.next = null;
-      cur = tmp;
-    }
-
-    oddTail.next = evenHead.next;
-
-    return oddHead.next;
-  }
 }
