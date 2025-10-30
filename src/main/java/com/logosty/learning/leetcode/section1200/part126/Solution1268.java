@@ -1,8 +1,8 @@
 package com.logosty.learning.leetcode.section1200.part126;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
 
@@ -54,6 +54,7 @@ import com.alibaba.fastjson.JSON;
  */
 public class Solution1268 {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
         //录入字典
         Node[] homePage = new Node[26];
         for (String product : products) {
@@ -83,11 +84,10 @@ public class Solution1268 {
             curPage = pre.nextPage;
         }
         while (pre != null) {
-            if (pre.recommendWords == null) {
-                pre.recommendWords = new ArrayList<>();
+
+            if (pre.recommendWords.size() < 3) {
+                pre.recommendWords.add(word);
             }
-            pre.recommendWords.add(word);
-            pre.recommendWords = pre.recommendWords.stream().sorted().limit(3).collect(Collectors.toList());
             pre = pre.prev;
         }
     }
